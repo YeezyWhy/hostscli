@@ -6,6 +6,7 @@
         "ERROR_MSG_ARG": "Unexpected argument \"{function_argument}\"!\n",
         "ERROR_MSG_PARAM": "Missing some parameters!\n",
         "ERROR_MSG_HELP": "Unknown action \"{action_argument}\"!\n",
+        "INFO_MSG_DONE": "Done",
         "INFO_MSG_ADD": "SOURCE: {source}\nTARGETS: {targets}\nAdding this parameters to hosts file...",
         "INFO_MSG_EDIT": "SOURCE: FROM {source1} TO {source2}\nTARGETS: FROM {targets1} TO {targets2}\nAdding this parameters to hosts file...",
         "INFO_MSG_REMOVE": "SOURCE: {source}\nTARGETS: {targets}\nRemoving this parameters from hosts file...",

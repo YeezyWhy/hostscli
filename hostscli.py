@@ -35,12 +35,14 @@ with warnings.catch_warnings():
             HOSTS = "/private/etc/hosts"
     
 
-    # USAGE MESSAGES
+    # STATIC USAGE MESSAGES
     HELP_MSG = LOCALIZATION_DATA['HELP_MSG']
     HELP_MSG_ADD = LOCALIZATION_DATA['HELP_MSG_ADD']
     HELP_MSG_EDIT = LOCALIZATION_DATA['HELP_MSG_EDIT']
     HELP_MSG_REMOVE = LOCALIZATION_DATA['HELP_MSG_REMOVE']
 
+    # STATIC INFO MESSAGES
+    INFO_MSG_DONE = LOCALIZATION_DATA['INFO_MSG_DONE']
 
     # FUNCTIONS
     def append_hosts(source: str, targets: list[str]) -> None:
@@ -94,7 +96,7 @@ with warnings.catch_warnings():
     def replace_all(string: str, dict) -> str:
         """Replace all substrings represented in "dict" variable in string represented in "string" variable
         Usage: replace_all("Some text [string1] here, but i [string2]", { "[string1]": "was", "[string2]": "replaced it" }) -> Some text was here, but i replaced it"""
-        for i, j in dict.iteritems():
+        for i, j in dict.items():
             string = string.replace(i, j)
         return string
 
@@ -111,8 +113,9 @@ with warnings.catch_warnings():
                         source = arguments[1]
                         targets = arguments[2::]
                         print(replace_all(LOCALIZATION_DATA['INFO_MSG_ADD'], 
-                                          { "{source}": source, "{targets}": targets }))
+                                          { "{source}": source, "{targets}": ' '.join(targets) }))
                         append_hosts(source, targets)
+                        print(INFO_MSG_DONE)
                     else:
                         print(f"{LOCALIZATION_DATA['ERROR_MSG_PARAM']}{HELP_MSG_ADD}")
                 case "edit":
@@ -128,8 +131,9 @@ with warnings.catch_warnings():
                         targets1 = arguments[source1_index+1:to_index]
                         targets2 = arguments[source2_index+1::]
                         print(replace_all(LOCALIZATION_DATA['INFO_MSG_EDIT'], 
-                                          { "{source1}": source1, "{source2}": source2, "{targets1}": targets1, "{targets2}": targets2 }))
+                                          { "{source1}": source1, "{source2}": source2, "{targets1}": ' '.join(targets1), "{targets2}": ' '.join(targets2) }))
                         edit_hosts(source1, targets1, source2, targets2)
+                        print(INFO_MSG_DONE)
                     else:
                         print(f"{LOCALIZATION_DATA['ERROR_MSG_PARAM']}{HELP_MSG_EDIT}")
                 case "remove" | "delete" | "del" | "rm":
@@ -137,8 +141,9 @@ with warnings.catch_warnings():
                         source = arguments[1]
                         targets = arguments[2::]
                         print(replace_all(LOCALIZATION_DATA['INFO_MSG_REMOVE'], 
-                                          { "{source}": source, "{targets}": targets }))
+                                          { "{source}": source, "{targets}": ' '.join(targets) }))
                         remove_hosts(source, targets)
+                        print(INFO_MSG_DONE)
                     else:
                         print(f"{LOCALIZATION_DATA['ERROR_MSG_PARAM']}{HELP_MSG_REMOVE}")
                 case "print" | "show" | "-p":

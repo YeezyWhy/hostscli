@@ -6,6 +6,7 @@
         "ERROR_MSG_ARG": "Неизвестный аргумент \"{function_argument}\"!\n",
         "ERROR_MSG_PARAM": "Отсутствует часть параметров!\n",
         "ERROR_MSG_HELP": "Неизвестное действие \"{action_argument}\"!\n",
+        "INFO_MSG_DONE": "Выполнено",
         "INFO_MSG_ADD": "ИСТОЧНИК: {source}\nЦЕЛИ: {targets}\nДобавление параметров в hosts файл...",
         "INFO_MSG_EDIT": "ИСТОЧНИК: FROM {source1} TO {source2}\nЦЕЛИ: FROM {targets1} TO {targets2}\nДобавление параметров в hosts файл...",
         "INFO_MSG_REMOVE": "ИСТОЧНИК: {source}\nЦЕЛИ: {targets}\nУдаление параметров из hosts файла...",

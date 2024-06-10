@@ -91,7 +91,7 @@ with warnings.catch_warnings():
             return ctypes.windll.shell32.IsUserAnAdmin() != 0
 
 
-    def replace_all(string: str, dict: dict) -> str:
+    def replace_all(string: str, dict) -> str:
         """Replace all substrings represented in "dict" variable in string represented in "string" variable
         Usage: replace_all("Some text [string1] here, but i [string2]", { "[string1]": "was", "[string2]": "replaced it" }) -> Some text was here, but i replaced it"""
         for i, j in dict.iteritems():

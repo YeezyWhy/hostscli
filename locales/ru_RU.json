@@ -1,0 +1,17 @@
+{
+    "name": "Русский",
+    "author": "YeezyWhy[https://github.com/YeezyWhy]",
+    "localization_data": {
+        "ERROR_MSG_ADMIN": "Требуется повышение прав!\nНажмите любую клавишу для продолжения...",
+        "ERROR_MSG_ARG": "Неизвестный аргумент \"{function_argument}\"!\n",
+        "ERROR_MSG_PARAM": "Отсутствует часть параметров!\n",
+        "ERROR_MSG_HELP": "Неизвестное действие \"{action_argument}\"!\n",
+        "INFO_MSG_ADD": "ИСТОЧНИК: {source}\nЦЕЛИ: {targets}\nДобавление параметров в hosts файл...",
+        "INFO_MSG_EDIT": "ИСТОЧНИК: FROM {source1} TO {source2}\nЦЕЛИ: FROM {targets1} TO {targets2}\nДобавление параметров в hosts файл...",
+        "INFO_MSG_REMOVE": "ИСТОЧНИК: {source}\nЦЕЛИ: {targets}\nУдаление параметров из hosts файла...",
+        "HELP_MSG": "Использование: hostscli [ДЕЙСТВИЕ] [ИСТОЧНИК] [ЦЕЛИ...]\nПримеры:\nДОБАВЛЕНИЕ: hostscli ADD 127.0.0.1 somesite.com\nИЗМЕНЕНИЕ:  hostscli EDIT FROM 127.0.0.1 somesite.com TO 127.0.0.1 anysite.com\nУДАЛЕНИЕ:   hostscli REMOVE 127.0.0.1 anysite.com",
+        "HELP_MSG_ADD": "Использование: hostscli APPEND [ИСТОЧНИК] [ЦЕЛИ...]\nПример: hostscli ADD 127.0.0.1 somesite.com",
+        "HELP_MSG_EDIT": "Использование: hostscli EDIT [ИСТОЧНИК] [ЦЕЛИ...]\nПример: hostscli EDIT FROM 127.0.0.1 somesite.com TO 127.0.0.1 anysite.com",
+        "HELP_MSG_REMOVE": "Использование: hostscli REMOVE [ИСТОЧНИК] [ЦЕЛИ...]\nПример: hostscli REMOVE 127.0.0.1 somesite.com"
+    }
+}

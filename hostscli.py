@@ -175,5 +175,4 @@ with warnings.catch_warnings():
             print(HELP_MSG)
 
     except Exception as ex:
-        
         traceback.print_exc()

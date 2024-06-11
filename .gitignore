@@ -165,4 +165,3 @@ cython_debug/
 .vscode/
 output/
 hosts_build_config.json
-hostscli.ico

@@ -19,8 +19,8 @@ with warnings.catch_warnings():
     VERSION = "01.1006.2024"
     CULTURE = locale.getdefaultlocale()[0]
     LOCALE_PATH = resource_path("locales")
-    LOCALE_AVAILABLE = [json.load(open(f"{LOCALE_PATH}\\{file}", encoding="utf-8"))['name'] for file in os.listdir(LOCALE_PATH) if os.path.splitext(file)[1] == ".json"]
-    LOCALE_DATA = json.load(open(f"{LOCALE_PATH}\\{CULTURE}.json", encoding="utf-8"))
+    LOCALE_AVAILABLE = [json.load(open(f"{LOCALE_PATH}/{file}", encoding="utf-8"))['name'] for file in os.listdir(LOCALE_PATH) if os.path.splitext(file)[1] == ".json"]
+    LOCALE_DATA = json.load(open(f"{LOCALE_PATH}/{CULTURE}.json", encoding="utf-8"))
     LOCALIZATION_DATA = LOCALE_DATA['localization_data']
     OS_TYPE = platform.system()
 
@@ -166,8 +166,8 @@ with warnings.catch_warnings():
                 case "--version" | "-v":
                     print(f"hostscli version {VERSION}\nOS: {OS_TYPE}\nhosts location: {HOSTS}\navailable locales: {', '.join(LOCALE_AVAILABLE)}")
                 case _:
-                    print(f"{replace_all(LOCALIZATION_DATA['ERROR_MSG_ARG'], 
-                                         { "{function_argument}": function_argument })}{HELP_MSG}")
+                    print(replace_all(LOCALIZATION_DATA['ERROR_MSG_ARG'], 
+                                         { "{function_argument}": function_argument }),HELP_MSG)
         elif (is_admin() == False):
             
             input(f"{LOCALIZATION_DATA['ERROR_MSG_ADMIN']}")

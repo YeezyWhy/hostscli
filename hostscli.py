@@ -101,8 +101,11 @@ with warnings.catch_warnings():
                 case "Darwin" | "Linux":
                     SSH_LOCALPATH = f"{HOSTSCLI_PATH}/hostscli"
                     SSH_REMOTEPATH = "/tmp/hostscli"
+            locale_files = [file for file in os.listdir(LOCALE_PATH) if os.path.splitext(file)[1] == ".json"]
+            execute_command_on_remote_host(host, credentials, "cd /tmp/ && mkdir locales")
+            for file in locale_files:
+                sftp.put(f"{LOCALE_PATH}/{file}", f"/tmp/locales/{file}")
             sftp.put(SSH_LOCALPATH, SSH_REMOTEPATH)
-            sftp.put(LOCALE_PATH, "/tmp/locales")
             sftp.close()
             transport.close()
             execute_command_on_remote_host(host, credentials, f"chmod +x {SSH_REMOTEPATH}", False)

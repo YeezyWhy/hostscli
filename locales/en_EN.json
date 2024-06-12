@@ -6,12 +6,15 @@
         "ERROR_MSG_ARG": "Unexpected argument \"{function_argument}\"!\n",
         "ERROR_MSG_PARAM": "Missing some parameters!\n",
         "ERROR_MSG_HELP": "Unknown action \"{action_argument}\"!\n",
+        "ERROR_MSG_SSH": "Unable to connect to port 22 on {host}",
         "INFO_MSG_DONE": "Done",
-        "INFO_MSG_ADD": "SOURCE: {source}\nTARGETS: {targets}\nAdding this parameters to hosts file...",
-        "INFO_MSG_EDIT": "SOURCE: FROM {source1} TO {source2}\nTARGETS: FROM {targets1} TO {targets2}\nAdding this parameters to hosts file...",
-        "INFO_MSG_REMOVE": "SOURCE: {source}\nTARGETS: {targets}\nRemoving this parameters from hosts file...",
+        "INFO_MSG_ADD": "SOURCE: {source}\nTARGETS: {targets}\nHOSTS: {hosts}\nAdding this parameters to hosts file...",
+        "INFO_MSG_EDIT": "SOURCE: FROM {source1} TO {source2}\nTARGETS: FROM {targets1} TO {targets2}\nHOSTS: {hosts}\nAdding this parameters to hosts file...",
+        "INFO_MSG_REMOVE": "SOURCE: {source}\nTARGETS: {targets}\nHOSTS: {hosts}\nRemoving this parameters from hosts file...",
+        "INFO_MSG_SFTP_COPY": "Копирование на {host}...",
         "HELP_MSG": "Usage: hostscli [ACTION] [SOURCE] [TARGETS...]\nSome examples:\nAPPEND: hostscli ADD 127.0.0.1 somesite.com\nEDIT:   hostscli EDIT FROM 127.0.0.1 somesite.com TO 127.0.0.1 anysite.com\nREMOVE: hostscli REMOVE 127.0.0.1 anysite.com",
         "HELP_MSG_ADD": "Usage: hostscli APPEND [SOURCE] [TARGETS...]\nExample: hostscli ADD 127.0.0.1 somesite.com",
+        "HELP_MSG_CONFIG": "Usage: hostscli CONFIG [PARAM]\nExample: hostscli CONFIG --add ",
         "HELP_MSG_EDIT": "Usage: hostscli EDIT [SOURCE] [TARGETS...]\nExample: hostscli EDIT FROM 127.0.0.1 somesite.com TO 127.0.0.1 anysite.com",
         "HELP_MSG_REMOVE": "Usage: hostscli REMOVE [SOURCE] [TARGETS...]\nExample: hostscli REMOVE 127.0.0.1 somesite.com"
     }

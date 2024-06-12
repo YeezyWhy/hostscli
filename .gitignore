@@ -166,3 +166,5 @@ cython_debug/
 output/
 hosts_build_config.json
 .DS_Store
+hostscli.conf
+hostscli

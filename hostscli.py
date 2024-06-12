@@ -103,49 +103,58 @@ with warnings.catch_warnings():
 
     # APP MAIN CODE
     try:
-        if (len(sys.argv) > 1 and is_admin()):
+        if (len(sys.argv) > 1):
             arguments = sys.argv[1::]
             arguments = [s.lower() for s in arguments]
             function_argument = arguments[0]
             match function_argument:
                 case "append" | "add":
-                    if (len(arguments) >= 3):
-                        source = arguments[1]
-                        targets = arguments[2::]
-                        print(replace_all(LOCALIZATION_DATA['INFO_MSG_ADD'], 
-                                          { "{source}": source, "{targets}": ' '.join(targets) }))
-                        append_hosts(source, targets)
-                        print(INFO_MSG_DONE)
+                    if (is_admin()):
+                        if (len(arguments) >= 3):
+                            source = arguments[1]
+                            targets = arguments[2::]
+                            print(replace_all(LOCALIZATION_DATA['INFO_MSG_ADD'], 
+                                            { "{source}": source, "{targets}": ' '.join(targets) }))
+                            append_hosts(source, targets)
+                            print(INFO_MSG_DONE)
+                        else:
+                            print(f"{LOCALIZATION_DATA['ERROR_MSG_PARAM']}{HELP_MSG_ADD}")
                     else:
-                        print(f"{LOCALIZATION_DATA['ERROR_MSG_PARAM']}{HELP_MSG_ADD}")
+                        input(f"{LOCALIZATION_DATA['ERROR_MSG_ADMIN']}")
                 case "edit":
-                    if (len(arguments) >= 3):
-                        if ("from" in arguments):
-                            from_index = arguments.index("from")
-                        if ("to" in arguments):
-                            to_index = arguments.index("to")
-                        source1 = arguments[from_index+1]
-                        source1_index = arguments.index(source1)
-                        source2 = arguments[to_index+1]
-                        source2_index = arguments.index(source2, to_index)
-                        targets1 = arguments[source1_index+1:to_index]
-                        targets2 = arguments[source2_index+1::]
-                        print(replace_all(LOCALIZATION_DATA['INFO_MSG_EDIT'], 
-                                          { "{source1}": source1, "{source2}": source2, "{targets1}": ' '.join(targets1), "{targets2}": ' '.join(targets2) }))
-                        edit_hosts(source1, targets1, source2, targets2)
-                        print(INFO_MSG_DONE)
+                    if (is_admin()):
+                        if (len(arguments) >= 3):
+                            if ("from" in arguments):
+                                from_index = arguments.index("from")
+                            if ("to" in arguments):
+                                to_index = arguments.index("to")
+                            source1 = arguments[from_index+1]
+                            source1_index = arguments.index(source1)
+                            source2 = arguments[to_index+1]
+                            source2_index = arguments.index(source2, to_index)
+                            targets1 = arguments[source1_index+1:to_index]
+                            targets2 = arguments[source2_index+1::]
+                            print(replace_all(LOCALIZATION_DATA['INFO_MSG_EDIT'], 
+                                            { "{source1}": source1, "{source2}": source2, "{targets1}": ' '.join(targets1), "{targets2}": ' '.join(targets2) }))
+                            edit_hosts(source1, targets1, source2, targets2)
+                            print(INFO_MSG_DONE)
+                        else:
+                            print(f"{LOCALIZATION_DATA['ERROR_MSG_PARAM']}{HELP_MSG_EDIT}")
                     else:
-                        print(f"{LOCALIZATION_DATA['ERROR_MSG_PARAM']}{HELP_MSG_EDIT}")
+                        input(f"{LOCALIZATION_DATA['ERROR_MSG_ADMIN']}")
                 case "remove" | "delete" | "del" | "rm":
-                    if (len(arguments) >= 3):
-                        source = arguments[1]
-                        targets = arguments[2::]
-                        print(replace_all(LOCALIZATION_DATA['INFO_MSG_REMOVE'], 
-                                          { "{source}": source, "{targets}": ' '.join(targets) }))
-                        remove_hosts(source, targets)
-                        print(INFO_MSG_DONE)
+                    if (is_admin()):
+                        if (len(arguments) >= 3):
+                            source = arguments[1]
+                            targets = arguments[2::]
+                            print(replace_all(LOCALIZATION_DATA['INFO_MSG_REMOVE'], 
+                                            { "{source}": source, "{targets}": ' '.join(targets) }))
+                            remove_hosts(source, targets)
+                            print(INFO_MSG_DONE)
+                        else:
+                            print(f"{LOCALIZATION_DATA['ERROR_MSG_PARAM']}{HELP_MSG_REMOVE}")
                     else:
-                        print(f"{LOCALIZATION_DATA['ERROR_MSG_PARAM']}{HELP_MSG_REMOVE}")
+                        input(f"{LOCALIZATION_DATA['ERROR_MSG_ADMIN']}")
                 case "print" | "show" | "-p":
                     with open(HOSTS, 'r') as f:
                         print(f.read())
@@ -168,9 +177,6 @@ with warnings.catch_warnings():
                 case _:
                     print(replace_all(LOCALIZATION_DATA['ERROR_MSG_ARG'], 
                                          { "{function_argument}": function_argument }),HELP_MSG)
-        elif (is_admin() == False):
-            
-            input(f"{LOCALIZATION_DATA['ERROR_MSG_ADMIN']}")
         else:
             print(HELP_MSG)
 

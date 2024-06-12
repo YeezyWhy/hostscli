@@ -28,7 +28,7 @@ with warnings.catch_warnings():
         HOSTSCLI_BIN = os.path.basename(__file__)
         HOSTSCLI_PATH = os.path.dirname(os.path.abspath(__file__))
     LOCAL_IP = socket.gethostbyname(socket.gethostname())
-    LOCALE_PATH = f"{HOSTSCLI_PATH}/locales"
+    LOCALE_PATH = resource_path("locales")
     LOCALE_AVAILABLE = [json.load(open(f"{LOCALE_PATH}/{file}", encoding="utf-8"))['name'] for file in os.listdir(LOCALE_PATH) if os.path.splitext(file)[1] == ".json"]
     LOCALE_DATA = json.load(open(f"{LOCALE_PATH}/{CULTURE}.json", encoding="utf-8"))
     LOCALIZATION_DATA = LOCALE_DATA['localization_data']
@@ -101,10 +101,6 @@ with warnings.catch_warnings():
                 case "Darwin" | "Linux":
                     SSH_LOCALPATH = f"{HOSTSCLI_PATH}/hostscli"
                     SSH_REMOTEPATH = "/tmp/hostscli"
-            locale_files = [file for file in os.listdir(LOCALE_PATH) if os.path.splitext(file)[1] == ".json"]
-            execute_command_on_remote_host(host, credentials, "cd /tmp/ && mkdir locales")
-            for file in locale_files:
-                sftp.put(f"{LOCALE_PATH}/{file}", f"/tmp/locales/{file}")
             sftp.put(SSH_LOCALPATH, SSH_REMOTEPATH)
             sftp.close()
             transport.close()

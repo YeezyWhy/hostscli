@@ -83,7 +83,7 @@ with warnings.catch_warnings():
             client.close()
             return str(remote_system_type.decode()).strip()
         except:
-            return f"{replace_all(LOCALIZATION_DATA['ERROR_MSG_SSH'], { "{host}": host })}"
+            return f"{replace_all(LOCALIZATION_DATA['ERROR_MSG_SSH'], { '{host}': host })}"
 
 
     def add_hostscli_to_remote_host(host, credentials, remote_system_type) -> None:

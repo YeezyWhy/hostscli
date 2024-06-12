@@ -1,1 +1,0 @@
-pyinstaller --noconfirm --onefile --console --icon "/path/to/hostscli.ico" --name "hostscli" --uac-admin --add-data "/path/to/locales;locales"  "/path/to/hostscli.py"

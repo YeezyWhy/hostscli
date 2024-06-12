@@ -28,7 +28,7 @@ with warnings.catch_warnings():
         HOSTSCLI_BIN = os.path.basename(__file__)
         HOSTSCLI_PATH = os.path.dirname(os.path.abspath(__file__))
     LOCAL_IP = socket.gethostbyname(socket.gethostname())
-    LOCALE_PATH = resource_path("locales")
+    LOCALE_PATH = f"{HOSTSCLI_PATH}/locales"
     LOCALE_AVAILABLE = [json.load(open(f"{LOCALE_PATH}/{file}", encoding="utf-8"))['name'] for file in os.listdir(LOCALE_PATH) if os.path.splitext(file)[1] == ".json"]
     LOCALE_DATA = json.load(open(f"{LOCALE_PATH}/{CULTURE}.json", encoding="utf-8"))
     LOCALIZATION_DATA = LOCALE_DATA['localization_data']
@@ -83,7 +83,7 @@ with warnings.catch_warnings():
             client.close()
             return str(remote_system_type.decode()).strip()
         except:
-            return f"{replace_all(LOCALIZATION_DATA['ERROR_MSG_SSH'], { '{host}': host } )}"
+            return f"{replace_all(LOCALIZATION_DATA['ERROR_MSG_SSH'], { "{host}": host })}"
 
 
     def add_hostscli_to_remote_host(host, credentials, remote_system_type) -> None:
@@ -102,6 +102,7 @@ with warnings.catch_warnings():
                     SSH_LOCALPATH = f"{HOSTSCLI_PATH}/hostscli"
                     SSH_REMOTEPATH = "/tmp/hostscli"
             sftp.put(SSH_LOCALPATH, SSH_REMOTEPATH)
+            sftp.put(LOCALE_PATH, "/tmp/locales")
             sftp.close()
             transport.close()
             execute_command_on_remote_host(host, credentials, f"chmod +x {SSH_REMOTEPATH}", False)

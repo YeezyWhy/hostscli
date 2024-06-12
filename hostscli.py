@@ -16,7 +16,7 @@ with warnings.catch_warnings():
     
 
     # CONFIG
-    VERSION = "01.1006.2024"
+    VERSION = "01.1206.2024"
     CULTURE = locale.getdefaultlocale()[0]
     LOCALE_PATH = resource_path("locales")
     LOCALE_AVAILABLE = [json.load(open(f"{LOCALE_PATH}/{file}", encoding="utf-8"))['name'] for file in os.listdir(LOCALE_PATH) if os.path.splitext(file)[1] == ".json"]

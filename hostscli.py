@@ -83,7 +83,7 @@ with warnings.catch_warnings():
             client.close()
             return str(remote_system_type.decode()).strip()
         except:
-            return f"{replace_all(LOCALIZATION_DATA['ERROR_MSG_SSH'], { "{host}": host })}"
+            return f"{replace_all(LOCALIZATION_DATA['ERROR_MSG_SSH'], { '{host}': host } )}"
 
 
     def add_hostscli_to_remote_host(host, credentials, remote_system_type) -> None:
@@ -225,6 +225,8 @@ with warnings.catch_warnings():
                             try:
                                 if (credentials != None):
                                     hosts = arguments[arguments.index('host')+1:arguments.index('cred'):]
+                                else:
+                                    hosts = ["localhost"]
                             except Exception:
                                 hosts = ["localhost"]
                             print(replace_all(LOCALIZATION_DATA['INFO_MSG_ADD'], 
@@ -261,6 +263,8 @@ with warnings.catch_warnings():
                             try:
                                 if (credentials != None):
                                     hosts = arguments[arguments.index('host')+1:arguments.index('cred'):]
+                                else:
+                                    hosts = ["localhost"]
                             except Exception:
                                 hosts = ["localhost"]
                             print(replace_all(LOCALIZATION_DATA['INFO_MSG_EDIT'], 
@@ -285,6 +289,8 @@ with warnings.catch_warnings():
                             try:
                                 if (credentials != None):
                                     hosts = arguments[arguments.index('host')+1:arguments.index('cred'):]
+                                else:
+                                    hosts = ["localhost"]
                             except Exception:
                                 hosts = ["localhost"]
                             print(replace_all(LOCALIZATION_DATA['INFO_MSG_REMOVE'], 
@@ -305,6 +311,8 @@ with warnings.catch_warnings():
                     try:
                         if (credentials != None):
                             hosts = arguments[arguments.index('host')+1:arguments.index('cred'):]
+                        else:
+                            hosts = ["localhost"]
                     except Exception:
                         hosts = ["localhost"]
                     print_hosts(hosts, credentials)

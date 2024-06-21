@@ -14,4 +14,4 @@ CLI which helps manage hosts file in terminal app
 
 - [x] Basic functions like: add, edit, remove
 - [x] Windows, Linux, MacOS support
-- [ ] Remote hosts administation (for PCs in domain or via ssh)
+- [ ] Remote hosts administation (in progress)

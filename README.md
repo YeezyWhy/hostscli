@@ -36,6 +36,14 @@ Print hostscli data
   hostscli print
 ```
 
+## Build hostscli from source
+
+```bash
+  git clone https://github.com/YeezyWhy/hostscli.git /tmp/hostscli
+  cd /tmp/hostscli
+  sh ./build.sh
+```
+
 
 ## TODO List
 

@@ -20,7 +20,10 @@ with warnings.catch_warnings():
     CULTURE = locale.getdefaultlocale()[0]
     LOCALE_PATH = resource_path("locales")
     LOCALE_AVAILABLE = [json.load(open(f"{LOCALE_PATH}/{file}", encoding="utf-8"))['name'] for file in os.listdir(LOCALE_PATH) if os.path.splitext(file)[1] == ".json"]
-    LOCALE_DATA = json.load(open(f"{LOCALE_PATH}/{CULTURE}.json", encoding="utf-8"))
+    if (os.path.exists(f"{LOCALE_PATH}/{CULTURE}.json")):
+        LOCALE_DATA = json.load(open(f"{LOCALE_PATH}/{CULTURE}.json", encoding="utf-8"))
+    else:
+        LOCALE_DATA = json.load(open(f"{LOCALE_PATH}/en_US.json", encoding="utf-8"))
     LOCALIZATION_DATA = LOCALE_DATA['localization_data']
     OS_TYPE = platform.system()
 

@@ -47,7 +47,7 @@ Print hostscli data
   sh ./build.sh
 ```
 
-# For Windows
+# For Windows (using PowerShell)
 
 ```bash
   pip install pyinstaller

@@ -37,12 +37,22 @@ Print hostscli data
 
 ## Build hostscli from source
 
+### For MacOS
+
 ```bash
   pip install pyinstaller
-  sudo ln -s ~/.local/bin/pyinstaller /usr/local/sbin/pyinstaller
   git clone https://github.com/YeezyWhy/hostscli.git /tmp/hostscli
   cd /tmp/hostscli
   sh ./build.sh
+```
+
+# For Windows
+
+```bash
+  pip install pyinstaller
+  git clone https://github.com/YeezyWhy/hostscli.git %TEMP%/hostscli
+  cd %TEMP%
+  ./build.ps1
 ```
 
 

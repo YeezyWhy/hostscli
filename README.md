@@ -7,6 +7,7 @@ CLI which helps manage hosts file in terminal app
 
 - Windows
 - MacOS
+- Linux
 
 
 ## hostscli commands
@@ -37,7 +38,7 @@ Print hostscli data
 
 ## Build hostscli from source
 
-### For MacOS
+### For Unix
 
 ```bash
   pip install pyinstaller
@@ -60,5 +61,4 @@ Print hostscli data
 
 - [x] Basic functions like: add, edit, remove
 - [x] Windows, MacOS support
-- [ ] Linux support
 - [ ] Remote hosts administation (in progress)

@@ -1,1 +1,1 @@
-pyinstaller --noconfirm --onefile --console --icon "hostscli.ico" --name "hostscli" --add-data "./locales:locales" "hostscli.py" -F
+pyinstaller --noconfirm --onefile --console --icon "hostscli.ico" --name "hostscli" --add-data "./locales:locales" "hostscli.py"

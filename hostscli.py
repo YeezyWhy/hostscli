@@ -32,10 +32,8 @@ with warnings.catch_warnings():
     match OS_TYPE:
         case "Windows":
             HOSTS = f"{os.environ['SystemRoot']}\\system32\\drivers\\etc\\hosts"
-        case "Darwin":
+        case "Darwin" | "Linux":
             HOSTS = "/etc/hosts"
-        case "Linux":
-            HOSTS = "/private/etc/hosts"
     
 
     # STATIC USAGE MESSAGES

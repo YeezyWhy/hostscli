@@ -7,7 +7,6 @@ CLI which helps manage hosts file in terminal app
 
 - Windows
 - MacOS
-- Linux
 
 
 ## hostscli commands
@@ -50,5 +49,6 @@ Print hostscli data
 ## TODO List
 
 - [x] Basic functions like: add, edit, remove
-- [x] Windows, Linux, MacOS support
+- [x] Windows, MacOS support
+- [ ] Linux support
 - [ ] Remote hosts administation (in progress)

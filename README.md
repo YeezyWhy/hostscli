@@ -40,6 +40,7 @@ Print hostscli data
 
 ```bash
   pip install pyinstaller
+  sudo ln -s ~/.local/bin/pyinstaller /usr/local/sbin/pyinstaller
   git clone https://github.com/YeezyWhy/hostscli.git /tmp/hostscli
   cd /tmp/hostscli
   sh ./build.sh

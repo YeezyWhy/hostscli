@@ -33,6 +33,7 @@ with warnings.catch_warnings():
     MACOS_BIN_PATH = f"{BIN_PATH}/hostscli_macos"
     LINUX_BIN_PATH = f"{BIN_PATH}/hostscli_linux"
     LOCALE_AVAILABLE = [json.load(open(f"{LOCALE_PATH}/{file}", encoding="utf-8"))['name'] for file in os.listdir(LOCALE_PATH) if os.path.splitext(file)[1] == ".json"]
+    LOCALE_AVAILABLE.sort()
     if (os.path.exists(f"{LOCALE_PATH}/{CULTURE}.json")):
         LOCALE_DATA = json.load(open(f"{LOCALE_PATH}/{CULTURE}.json", encoding="utf-8"))
     else:

@@ -10,16 +10,16 @@
         "INFO_MSG_VERSION": "hostscli version {version} {state} build\nOS: {os_type}\nhosts location: {hosts}\navailable locales: {locales}\nCurrent locale: {locale_name}\nLocalized by {author}\n",
         "INFO_MSG_DONE": "Done",
         "INFO_MSG_ADD": "SOURCE: {source}\nTARGETS: {targets}\nHOSTS: {hosts}\nAdding this parameters to hosts file...",
-        "INFO_MSG_EDIT": "SOURCE: FROM {source1} TO {source2}\nTARGETS: FROM {targets1} TO {targets2}\nHOSTS: {hosts}\nAdding this parameters to hosts file...",
+        "INFO_MSG_EDIT": "SOURCE: from {source1} to {source2}\nTARGETS: from {targets1} to {targets2}\nHOSTS: {hosts}\nAdding this parameters to hosts file...",
         "INFO_MSG_REMOVE": "SOURCE: {source}\nTARGETS: {targets}\nHOSTS: {hosts}\nRemoving this parameters from hosts file...",
         "INFO_MSG_SFTP_COPY": "Copying to {host}...",
         "INFO_MSG_UPTODATE": "Program up-to-date",
         "INFO_MSG_UPDATE": "Version {version} available, execute hostscli --update for update",
-        "HELP_MSG": "Usage: hostscli [ACTION] [SOURCE] [TARGETS...]\nSome examples:\nAPPEND: hostscli ADD 127.0.0.1 somesite.com\nEDIT:   hostscli EDIT FROM 127.0.0.1 somesite.com TO 127.0.0.1 anysite.com\nREMOVE: hostscli REMOVE 127.0.0.1 anysite.com",
-        "HELP_MSG_ADD": "Usage: hostscli APPEND [SOURCE] [TARGETS...]\nExample: hostscli ADD 127.0.0.1 somesite.com",
+        "HELP_MSG": "Usage: hostscli [ACTION] [SOURCE] [TARGETS...]\nSome examples:\nAPPEND: hostscli add 127.0.0.1 somesite.com\nEDIT:   hostscli edit from 127.0.0.1 somesite.com to 127.0.0.1 anysite.com\nREMOVE: hostscli rm 127.0.0.1 anysite.com",
+        "HELP_MSG_ADD": "Usage: hostscli APPEND [SOURCE] [TARGETS...]\nExample: hostscli add 127.0.0.1 somesite.com",
         "HELP_MSG_CONFIG": "Usage: hostscli CONFIG [PARAM]\nExample: hostscli CONFIG --add ",
-        "HELP_MSG_EDIT": "Usage: hostscli EDIT [SOURCE] [TARGETS...]\nExample: hostscli EDIT FROM 127.0.0.1 somesite.com TO 127.0.0.1 anysite.com",
-        "HELP_MSG_REMOVE": "Usage: hostscli REMOVE [SOURCE] [TARGETS...]\nExample: hostscli REMOVE 127.0.0.1 somesite.com",
+        "HELP_MSG_EDIT": "Usage: hostscli edit [SOURCE] [TARGETS...]\nExample: hostscli edit from 127.0.0.1 somesite.com to 127.0.0.1 anysite.com",
+        "HELP_MSG_REMOVE": "Usage: hostscli rm [SOURCE] [TARGETS...]\nExample: hostscli rm 127.0.0.1 somesite.com",
         "QST_MSG_REMOVE": "Are you sure you want to remove object \"{source} {targets}\" on host(s) {hosts}? (y/n)"
     }
 }

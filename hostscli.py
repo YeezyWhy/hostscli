@@ -152,7 +152,7 @@ with warnings.catch_warnings():
             sftp.put(SSH_LOCALPATH, SSH_REMOTEPATH)
             sftp.close()
             transport.close()
-            if (remote_system_type == "Linux" | "Darwin"):
+            if (remote_system_type in ["Linux", "Darwin"]):
                 execute_command_on_remote_host(host, credentials, f"chmod +x {SSH_REMOTEPATH}", False)
         except Exception:
             traceback.print_exc()
@@ -283,7 +283,6 @@ with warnings.catch_warnings():
     try:
         if (len(sys.argv) > 1):
             arguments = sys.argv[1::]
-            arguments = [s.lower() for s in arguments]
             function_argument = arguments[0]
             match function_argument:
                 case "append" | "add":

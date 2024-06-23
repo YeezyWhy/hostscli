@@ -96,6 +96,7 @@ hostscli print --host 192.168.1.20 192.168.1.21 192.168.1.22 --cred login:passwo
 pip install pyinstaller
 git clone https://github.com/YeezyWhy/hostscli.git /tmp/hostscli
 cd /tmp/hostscli
+pip install -r requirements.txt
 sh ./build.sh
 ```
 

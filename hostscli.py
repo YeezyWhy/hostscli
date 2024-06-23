@@ -28,9 +28,10 @@ with warnings.catch_warnings():
         HOSTSCLI_PATH = os.path.dirname(os.path.abspath(__file__))
     LOCAL_IP = socket.gethostbyname(socket.gethostname())
     LOCALE_PATH = resource_path("locales")
-    WIN_BIN_PATH = resource_path("hostscli.exe")
-    MACOS_BIN_PATH = resource_path("hostscli_macos")
-    LINUX_BIN_PATH = resource_path("hostscli_linux")
+    BIN_PATH = resource_path("bin")
+    WIN_BIN_PATH = f"{BIN_PATH}/hostscli.exe"
+    MACOS_BIN_PATH = f"{BIN_PATH}/hostscli_macos"
+    LINUX_BIN_PATH = f"{BIN_PATH}/hostscli_linux"
     LOCALE_AVAILABLE = [json.load(open(f"{LOCALE_PATH}/{file}", encoding="utf-8"))['name'] for file in os.listdir(LOCALE_PATH) if os.path.splitext(file)[1] == ".json"]
     if (os.path.exists(f"{LOCALE_PATH}/{CULTURE}.json")):
         LOCALE_DATA = json.load(open(f"{LOCALE_PATH}/{CULTURE}.json", encoding="utf-8"))
@@ -40,7 +41,7 @@ with warnings.catch_warnings():
     OS_TYPE = platform.system()
     CURRENT_LOCALE = LOCALE_DATA['name']
     LOCALE_AUTHOR = LOCALE_DATA['author']
-    VERSION = "02.2206.2024"
+    VERSION = "01.0206.2024"
     STATE = "Test"
     # SSH_CONFIG = ""
 
@@ -73,6 +74,7 @@ with warnings.catch_warnings():
     
 
     def get_actual_version_link() -> dict:
+        """Checks for update and return dict object {"version": "download_link"}"""
         response = requests.get("https://api.github.com/repos/yeezywhy/hostscli/releases/latest").json()
         assets = response['assets']
         version_on_git = int(''.join(str(response['tag_name']).split('.')))
@@ -93,18 +95,21 @@ with warnings.catch_warnings():
                             return {response['tag_name']: asset['browser_download_url']}
 
 
+    """Downloads update from download_link"""
     def download_update() -> None:
         match OS_TYPE:
             case "Windows":
                 output_name = "hostscli.exe"
-            
+
             case "Darwin" | "Linux":
                 output_name = "hostscli"
-        wget.download(get_actual_version_link().keys[0], f"{HOSTSCLI_PATH}/{output_name}")
+
+        wget.download(list(get_actual_version_link().values())[0], f"{HOSTSCLI_PATH}/{output_name}")
 
 
     # REMOTE
     def execute_command_on_remote_host(host, credentials, command, sudo = False) -> str:
+        """Executes command on remote host via ssh"""
         try:
             username = credentials.split(':')[0]
             password = credentials.split(':')[1]
@@ -125,6 +130,7 @@ with warnings.catch_warnings():
 
 
     def add_hostscli_to_remote_host(host, credentials, remote_system_type) -> None:
+        """Copying hostscli bin file to target host"""
         try:
             username = credentials.split(':')[0]
             password = credentials.split(':')[1]
@@ -152,6 +158,7 @@ with warnings.catch_warnings():
 
 
     def get_remote_system_type(host, credentials):
+        """Gets remote system type (Linux, Darwin, Windows)"""
         return execute_command_on_remote_host(host, credentials, "uname")
 
 
@@ -187,8 +194,7 @@ with warnings.catch_warnings():
                 add_hostscli_to_remote_host(host, credentials, remote_system_type)
                 print(INFO_MSG_DONE)
                 if (remote_system_type == "Windows"):
-                    print(f"{host} hosts:\n")
-                    print(execute_command_on_remote_host())
+                    print(execute_command_on_remote_host(f"C:\\Windows\\Temp\\hostscli.exe add {source} {' '.join(targets)}"))
                 elif (remote_system_type in ["Linux", "Darwin"]):
                     print(f"{host} hosts:\n")
                     print(execute_command_on_remote_host(host, credentials, f"cd /tmp && sudo ./hostscli add {source} {' '.join(targets)}", True))
@@ -216,10 +222,8 @@ with warnings.catch_warnings():
                 add_hostscli_to_remote_host(host, credentials, remote_system_type)
                 print(INFO_MSG_DONE)
                 if (remote_system_type == "Windows"):
-                    print(f"{host} hosts:\n")
-                    print(execute_command_on_remote_host())
+                    print(execute_command_on_remote_host(f"C:\\Windows\\Temp\\hostscli.exe edit from {source1} {' '.join(targets1)} to {source2} {' '.join(targets2)}"))
                 elif (remote_system_type in ["Linux", "Darwin"]):
-                    print(f"{host} hosts:\n")
                     print(execute_command_on_remote_host(host, credentials, f"cd /tmp && sudo ./hostscli edit from {source1} {' '.join(targets1)} to {source2} {' '.join(targets2)}", True))
 
 
@@ -237,7 +241,7 @@ with warnings.catch_warnings():
                 print(INFO_MSG_DONE)
                 if (remote_system_type == "Windows"):
                     print(f"{host} hosts:\n")
-                    print(execute_command_on_remote_host())
+                    print(execute_command_on_remote_host(host, credentials, "C:\\Windows\\Temp\\hostscli.exe print"))
                 elif (remote_system_type in ["Linux", "Darwin"]):
                     print(f"{host} hosts:\n")
                     print(execute_command_on_remote_host(host, credentials, f"cd /tmp && ./hostscli print"))
@@ -264,15 +268,14 @@ with warnings.catch_warnings():
                 add_hostscli_to_remote_host(host, credentials, remote_system_type)
                 print(INFO_MSG_DONE)
                 if (remote_system_type == "Windows"):
-                    print(f"{host} hosts:\n")
-                    print(execute_command_on_remote_host())
+                    print(execute_command_on_remote_host(host, credentials, f""))
                 elif (remote_system_type in ["Linux", "Darwin"]):
-                    print(f"{host} hosts:\n")
                     print(execute_command_on_remote_host(host, credentials, f"cd /tmp && sudo ./hostscli rm {source} {' '.join(targets)}", True))
 
 
+    # Update checking
     if (get_actual_version_link() != None):
-        print(replace_all(LOCALIZATION_DATA['INFO_MSG_UPDATE'], { '{version}': {list(get_actual_version_link().keys())[0]} }))
+        print(replace_all(LOCALIZATION_DATA['INFO_MSG_UPDATE'], { '{version}': ''.join({list(get_actual_version_link().keys())[0]}) }))
 
 
     # APP MAIN CODE

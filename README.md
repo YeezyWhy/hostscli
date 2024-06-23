@@ -105,6 +105,7 @@ sh ./build.sh
 pip install pyinstaller
 git clone https://github.com/YeezyWhy/hostscli.git %TEMP%/hostscli
 cd %TEMP%
+pip install -r requirements.txt
 ./build.ps1
 ```
 

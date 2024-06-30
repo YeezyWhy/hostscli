@@ -85,15 +85,18 @@ with warnings.catch_warnings():
                 match OS_TYPE:
                     case "Windows":
                         if (asset['name'] == "hostscli_Windows.exe"):
-                            return {response['tag_name']: asset['browser_download_url']}
+                            update_data = {response['tag_name']: asset['browser_download_url']}
+                            return update_data
                     
                     case "Linux":
                         if (asset['name'] == "hostscli_Linux"):
-                            return {response['tag_name']: asset['browser_download_url']}
+                            update_data = {response['tag_name']: asset['browser_download_url']}
+                            return update_data
                     
                     case "Darwin":
                         if (asset['name'] == "hostscli_MacOS"):
-                            return {response['tag_name']: asset['browser_download_url']}
+                            update_data = {response['tag_name']: asset['browser_download_url']}
+                            return update_data
 
 
     """Downloads update from download_link"""

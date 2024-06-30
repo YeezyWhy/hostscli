@@ -74,12 +74,13 @@ with warnings.catch_warnings():
     # FUNCTIONS
     
 
-    def get_actual_version_link() -> dict:
+    def get_actual_version_link() -> dict | None:
         """Checks for update and return dict object {"version": "download_link"}"""
         response = requests.get("https://api.github.com/repos/yeezywhy/hostscli/releases/latest").json()
         assets = response['assets']
         version_on_git = int(''.join(str(response['tag_name']).split('.')))
         current_version = int(''.join(VERSION.split('.')))
+        update_data = None
         if (current_version < version_on_git):
             for asset in assets:
                 match OS_TYPE:

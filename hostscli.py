@@ -42,7 +42,7 @@ with warnings.catch_warnings():
     OS_TYPE = platform.system()
     CURRENT_LOCALE = LOCALE_DATA['name']
     LOCALE_AUTHOR = LOCALE_DATA['author']
-    VERSION = "00.2306.2024"
+    VERSION = "02.0607.2024"
     STATE = "Test"
     # SSH_CONFIG = ""
 

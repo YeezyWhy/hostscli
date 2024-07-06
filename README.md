@@ -115,4 +115,4 @@ pip install -r requirements.txt
 
 - [x] Basic functions like: add, edit, remove
 - [x] Windows, MacOS support
-- [ ] Remote hosts administation (in progress)
+- [ ] Remote hosts administration (in progress)

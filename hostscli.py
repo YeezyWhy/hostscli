@@ -42,7 +42,7 @@ with warnings.catch_warnings():
     OS_TYPE = platform.system()
     CURRENT_LOCALE = LOCALE_DATA['name']
     LOCALE_AUTHOR = LOCALE_DATA['author']
-    VERSION = "02.2306.2024"
+    VERSION = "00.2306.2024"
     STATE = "Test"
     # SSH_CONFIG = ""
 
@@ -120,16 +120,19 @@ with warnings.catch_warnings():
             password = credentials.split(':')[1]
             client = paramiko.SSHClient()
             client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            client.connect(hostname=host, username=username, password=password)
-            channel = client.get_transport().open_session()
-            channel.get_pty()
-            channel.exec_command(command)
+            client.connect(hostname=host, username=username, password=password, timeout=10)
+            stdin, stdout, stderr = client.exec_command(command=command)
             if (sudo == True):
-                channel.send(password+'\n')
-            remote_system_type = channel.recv(1024)
-            channel.close()
-            client.close()
-            return str(remote_system_type.decode()).strip()
+                stdin.write(password + "\n")
+                stdin.flush()
+            stdoutput = [line for line in stdout]
+            stderroutput = [line for line in stderr]
+            if not stdout.channel.recv_exit_status():
+                client.close()
+                return '\n'.join(stdoutput).strip()
+            else:
+                client.close()
+                raise Exception('\n'.join(stderroutput).strip())
         except:
             return f"{replace_all(LOCALIZATION_DATA['ERROR_MSG_SSH'], { '{host}': host })}"
 
@@ -170,7 +173,7 @@ with warnings.catch_warnings():
     def is_admin() -> bool:
         """Checks user for administrator privilages"""
         try:
-            return os.getuid() == 0
+            return os.getuid() == 0 | 501
         except AttributeError:
             return ctypes.windll.shell32.IsUserAnAdmin() != 0
 
@@ -184,7 +187,7 @@ with warnings.catch_warnings():
 
 
     # LOCAL
-    def append_hosts(source, targets, hosts, credentials) -> None:
+    def append_hosts(source, targets, hosts: list[str], credentials: str) -> None:
         """Appends new string in the end of the hosts file"""
         for host in hosts:
             if (host in ['localhost', '127.0.0.1', LOCAL_IP]):
@@ -201,8 +204,30 @@ with warnings.catch_warnings():
                 if (remote_system_type == "Windows"):
                     print(execute_command_on_remote_host(f"C:\\Windows\\Temp\\hostscli.exe add {source} {' '.join(targets)}"))
                 elif (remote_system_type in ["Linux", "Darwin"]):
-                    print(f"{host} hosts:\n")
-                    print(execute_command_on_remote_host(host, credentials, f"cd /tmp && sudo ./hostscli add {source} {' '.join(targets)}", True))
+                    print(execute_command_on_remote_host(host, credentials, f"sudo /tmp/hostscli add {source} {' '.join(targets)}", True))
+
+
+    def import_hosts(file: str, hosts: list[str], credentials: str) -> None:
+        imported_content = None
+        with open(file, 'r') as imported_file:
+            imported_content = imported_file.read()
+            imported_file.close()
+        for host in hosts:
+            if (host in ['localhost', '127.0.0.1', LOCAL_IP]):
+                with open(HOSTS, 'a') as hosts_file:
+                    hosts_file.write(imported_content)
+                    hosts_file.close()
+            else:
+                remote_system_type = get_remote_system_type(host, credentials)
+                print(replace_all(LOCALIZATION_DATA["INFO_MSG_SFTP_COPY"], { "{host}": host }))
+                add_hostscli_to_remote_host(host, credentials, remote_system_type)
+                print(INFO_MSG_DONE)
+                if (remote_system_type == "Windows"):
+                    for line in imported_content.split('\n'):
+                        print(execute_command_on_remote_host(f"C:\\Windows\\Temp\\hostscli.exe add {line}"))
+                elif (remote_system_type in ["Linux", "Darwin"]):
+                    for line in imported_content.split('\n'):
+                        print(execute_command_on_remote_host(host, credentials, f"sudo /tmp/hostscli add {line}", True))
 
 
     def edit_hosts(source1, targets1, source2, targets2, hosts, credentials) -> None:
@@ -229,7 +254,7 @@ with warnings.catch_warnings():
                 if (remote_system_type == "Windows"):
                     print(execute_command_on_remote_host(f"C:\\Windows\\Temp\\hostscli.exe edit from {source1} {' '.join(targets1)} to {source2} {' '.join(targets2)}"))
                 elif (remote_system_type in ["Linux", "Darwin"]):
-                    print(execute_command_on_remote_host(host, credentials, f"cd /tmp && sudo ./hostscli edit from {source1} {' '.join(targets1)} to {source2} {' '.join(targets2)}", True))
+                    print(execute_command_on_remote_host(host, credentials, f"sudo /tmp/hostscli edit from {source1} {' '.join(targets1)} to {source2} {' '.join(targets2)}", True))
 
 
     def print_hosts(hosts, credentials) -> None:
@@ -249,7 +274,7 @@ with warnings.catch_warnings():
                     print(execute_command_on_remote_host(host, credentials, "C:\\Windows\\Temp\\hostscli.exe print"))
                 elif (remote_system_type in ["Linux", "Darwin"]):
                     print(f"{host} hosts:\n")
-                    print(execute_command_on_remote_host(host, credentials, f"cd /tmp && ./hostscli print"))
+                    print(execute_command_on_remote_host(host, credentials, f"/tmp/hostscli print"))
 
 
     def remove_hosts(source, targets, hosts, credentials) -> None:
@@ -275,7 +300,7 @@ with warnings.catch_warnings():
                 if (remote_system_type == "Windows"):
                     print(execute_command_on_remote_host(host, credentials, f""))
                 elif (remote_system_type in ["Linux", "Darwin"]):
-                    print(execute_command_on_remote_host(host, credentials, f"cd /tmp && sudo ./hostscli rm {source} {' '.join(targets)}", True))
+                    print(execute_command_on_remote_host(host, credentials, f"sudo /tmp/hostscli rm {source} {' '.join(targets)}", True))
 
 
     # Update checking
@@ -301,6 +326,7 @@ with warnings.catch_warnings():
                             try:
                                 if (credentials != None):
                                     hosts = arguments[arguments.index('--host')+1:arguments.index('--cred'):]
+                                    targets = arguments[2:arguments.index('--host'):]
                                 else:
                                     hosts = ["localhost"]
                             except Exception:
@@ -343,6 +369,7 @@ with warnings.catch_warnings():
                             try:
                                 if (credentials != None):
                                     hosts = arguments[arguments.index('--host')+1:arguments.index('--cred'):]
+                                    targets = arguments[2:arguments.index('--host'):]
                                 else:
                                     hosts = ["localhost"]
                             except Exception:
@@ -369,6 +396,7 @@ with warnings.catch_warnings():
                             try:
                                 if (credentials != None):
                                     hosts = arguments[arguments.index('--host')+1:arguments.index('--cred'):]
+                                    targets = arguments[2:arguments.index('--host'):]
                                 else:
                                     hosts = ["localhost"]
                             except Exception:
@@ -396,6 +424,7 @@ with warnings.catch_warnings():
                     try:
                         if (credentials != None):
                             hosts = arguments[arguments.index('--host')+1:arguments.index('--cred'):]
+                            targets = arguments[2:arguments.index('--host'):]
                         else:
                             hosts = ["localhost"]
                     except Exception:

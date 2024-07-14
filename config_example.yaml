@@ -1,0 +1,11 @@
+defaults:
+  add_recents: True
+  auth_data: "login:password"
+
+recent_connections:
+
+inventory:
+  server_name:
+    description:
+    auth_data: defaults.auth_data
+    ip:

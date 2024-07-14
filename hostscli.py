@@ -1,7 +1,7 @@
 import sys, traceback, warnings
 from config import *
 from utils import *
-from hostscli_functions import *
+from functions import *
 from updater import *
 
 

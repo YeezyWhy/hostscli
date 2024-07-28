@@ -1,8 +1,8 @@
-import sys, traceback, warnings
-from config import *
-from utils import *
-from functions import *
-from updater import *
+import sys, traceback, warnings, subprocess
+from src.config import *
+from src.utils import *
+from src.functions import *
+from src.updater import *
 
 
 with warnings.catch_warnings():
@@ -48,7 +48,7 @@ with warnings.catch_warnings():
                         input(f"{LOCALIZATION_DATA['ERROR_MSG_ADMIN']}")
 
 
-                case "config" | "creds":
+                case "config":
                     pass
 
 
@@ -164,7 +164,7 @@ with warnings.catch_warnings():
                 
                 case "--update":
                     if (get_actual_version_link() != None):
-                        download_update()
+                        pass
                     else:
                         print(LOCALIZATION_DATA['INFO_MSG_UPTODATE'])
 

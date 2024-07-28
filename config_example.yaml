@@ -1,11 +1,11 @@
 defaults:
-  add_recents: True
   auth_data: "login:password"
 
-recent_connections:
+prod:
+  auth_data: "login:password"
 
-inventory:
-  server_name:
-    description:
-    auth_data: defaults.auth_data
-    ip:
+stage:
+  auth_data: "login:password"
+
+test:
+  auth_data: "login:password"

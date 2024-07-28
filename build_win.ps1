@@ -1,1 +1,1 @@
-pyinstaller --noconfirm --distpath . --onefile --console --icon "hostscli.ico" --name "hostscli" --add-data "locales;locales" --add-data "bin;bin" "hostscli.py"
+pyinstaller --noconfirm --distpath . --onefile --console --icon "hostscli.ico" --name "hostscli" --add-data "locales;locales" --add-data "bin;bin" --add-data "src;src" "hostscli.py"

@@ -168,3 +168,5 @@ hosts_build_config.json
 .DS_Store
 hostscli.conf
 hostscli
+config_example.yaml
+inventory_example.yaml
